@@ -6,8 +6,12 @@
  * - Subtraction (-)
  * - Multiplication (*)
  * - Division (/)
+ * - Modulo (%)
+ * - Exponentiation (**)
+ * - Square Root (sqrt)
  *
- * Each function accepts two or more numeric arguments (where applicable).
+ * Each function accepts two or more numeric arguments (where applicable),
+ * except sqrt which accepts exactly one numeric argument.
  */
 
 function ensureNumbers(nums) {
@@ -45,9 +49,32 @@ function divide(...nums) {
   }, vals[0]);
 }
 
+function modulo(a, b) {
+  if (arguments.length < 2) throw new Error('modulo requires at least two numbers');
+  const [va, vb] = ensureNumbers([a, b]);
+  if (vb === 0) throw new Error('Modulo by zero');
+  return va % vb;
+}
+
+function exponentiate(base, exponent) {
+  if (arguments.length < 2) throw new Error('exponentiate requires at least two numbers');
+  const [vBase, vExp] = ensureNumbers([base, exponent]);
+  return vBase ** vExp;
+}
+
+function sqrt(n) {
+  if (arguments.length < 1) throw new Error('sqrt requires a number');
+  const [v] = ensureNumbers([n]);
+  if (v < 0) throw new Error('Cannot take square root of a negative number');
+  return Math.sqrt(v);
+}
+
 module.exports = {
   add,
   subtract,
   multiply,
   divide,
+  modulo,
+  exponentiate,
+  sqrt,
 };

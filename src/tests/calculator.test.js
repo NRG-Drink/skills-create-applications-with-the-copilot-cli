@@ -1,4 +1,4 @@
-const { add, subtract, multiply, divide } = require('../calculator');
+const { add, subtract, multiply, divide, modulo, exponentiate, sqrt } = require('../calculator');
 
 describe('calculator operations', () => {
   test('addition: 2 + 3 => 5', () => {
@@ -35,6 +35,58 @@ describe('calculator operations', () => {
 
   test('division by zero should throw', () => {
     expect(() => divide(10, 0)).toThrow(/Division by zero/);
+  });
+
+  test('modulo: 10 % 3 => 1', () => {
+    expect(modulo(10, 3)).toBe(1);
+  });
+
+  test('modulo: 15 % 4 => 3', () => {
+    expect(modulo(15, 4)).toBe(3);
+  });
+
+  test('modulo by zero should throw', () => {
+    expect(() => modulo(10, 0)).toThrow(/Modulo by zero/);
+  });
+
+  test('modulo with invalid input should throw', () => {
+    expect(() => modulo('a', 3)).toThrow(/Invalid number/);
+  });
+
+  test('exponentiation: 2 ** 8 => 256', () => {
+    expect(exponentiate(2, 8)).toBe(256);
+  });
+
+  test('exponentiation: 3 ** 3 => 27', () => {
+    expect(exponentiate(3, 3)).toBe(27);
+  });
+
+  test('exponentiation with fractional exponent: 4 ** 0.5 => 2', () => {
+    expect(exponentiate(4, 0.5)).toBe(2);
+  });
+
+  test('exponentiation with invalid input should throw', () => {
+    expect(() => exponentiate('a', 2)).toThrow(/Invalid number/);
+  });
+
+  test('sqrt: sqrt(16) => 4', () => {
+    expect(sqrt(16)).toBe(4);
+  });
+
+  test('sqrt: sqrt(9) => 3', () => {
+    expect(sqrt(9)).toBe(3);
+  });
+
+  test('sqrt: sqrt(2) returns correct float', () => {
+    expect(sqrt(2)).toBeCloseTo(Math.sqrt(2));
+  });
+
+  test('sqrt of negative number should throw', () => {
+    expect(() => sqrt(-1)).toThrow(/Cannot take square root of a negative number/);
+  });
+
+  test('sqrt with invalid input should throw', () => {
+    expect(() => sqrt('abc')).toThrow(/Invalid number/);
   });
 
   test('invalid numeric input should throw', () => {

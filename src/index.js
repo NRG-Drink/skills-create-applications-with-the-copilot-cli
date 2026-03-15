@@ -6,23 +6,29 @@
  *   subtract (-)
  *   multiply (*)
  *   divide (/)
+ *   modulo (%)
+ *   exponentiate (**)
+ *   sqrt
  *
  * Usage examples:
  *   node src/index.js add 5 3
  *   node src/index.js + 5 3
+ *   node src/index.js % 10 3
+ *   node src/index.js ** 2 8
+ *   node src/index.js sqrt 16
  */
 
 const path = require('path');
-const { add, subtract, multiply, divide } = require('./calculator');
+const { add, subtract, multiply, divide, modulo, exponentiate, sqrt } = require('./calculator');
 
 const argv = process.argv.slice(2);
 
 function printUsage() {
-  console.error('Usage: node src/index.js <operation> <num1> <num2> [<num3> ...]');
-  console.error('Operations: add (+), subtract (-), multiply (* or x), divide (/)');
+  console.error('Usage: node src/index.js <operation> <num1> [<num2> ...]');
+  console.error('Operations: add (+), subtract (-), multiply (* or x), divide (/), modulo (%), exponentiate (**), sqrt');
 }
 
-if (argv.length < 3) {
+if (argv.length < 2) {
   printUsage();
   process.exit(1);
 }
@@ -41,6 +47,12 @@ const ops = {
   divide: divide,
   '/': divide,
   '÷': divide,
+  modulo: modulo,
+  '%': modulo,
+  exponentiate: exponentiate,
+  '**': exponentiate,
+  '^': exponentiate,
+  sqrt: sqrt,
 };
 
 const fn = ops[op];
@@ -52,9 +64,7 @@ if (!fn) {
 
 try {
   const result = fn(...rawOperands);
-  // Print result in a readable form
-  if (Number.isInteger(result)) console.log(result);
-  else console.log(result);
+  console.log(result);
 } catch (err) {
   console.error('Error:', err.message);
   process.exit(1);
