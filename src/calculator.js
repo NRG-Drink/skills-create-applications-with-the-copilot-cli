@@ -45,9 +45,29 @@ function divide(...nums) {
   }, vals[0]);
 }
 
+function modulo(a, b) {
+  const [x, y] = ensureNumbers([a, b]);
+  if (y === 0) throw new Error('Modulo by zero');
+  return x % y;
+}
+
+function power(base, exponent) {
+  const [b, e] = ensureNumbers([base, exponent]);
+  return Math.pow(b, e);
+}
+
+function squareRoot(n) {
+  const [v] = ensureNumbers([n]);
+  if (v < 0) throw new Error('squareRoot requires a non-negative number');
+  return Math.sqrt(v);
+}
+
 module.exports = {
   add,
   subtract,
   multiply,
   divide,
+  modulo,
+  power,
+  squareRoot,
 };
